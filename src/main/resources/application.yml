@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: minio
+
+  servlet:
+    multipart:
+      max-file-size: 2048MB
+      max-request-size: 2048MB
+server:
+  tomcat:
+    max-swallow-size: -1
+    connection-timeout: 60000
+  port: 8088
+minio:
+  url: http://localhost:9000
+  accessKey: 88ufw7o1Dv7OLpbjVpji
+  secretKey: QiU4RBXuwe2pz1uUa2PqKjNu1zvyGvWvRlUbyFKr
+  bucketName: my-bucket
