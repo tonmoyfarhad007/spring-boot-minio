@@ -1,8 +1,9 @@
 Have Docker installed on your pc and run the below command
 
-```Linux:```
-mkdir -p ${HOME}/minio/data
+**Linux:**
 
+```mkdir -p ${HOME}/minio/data```
+```bash
 docker run \
    -p 9000:9000 \
    -p 9001:9001 \
@@ -12,8 +13,9 @@ docker run \
    -e "MINIO_ROOT_PASSWORD=CHANGEME123" \
    -v ${HOME}/minio/data:/data \
    quay.io/minio/minio server /data --console-address ":9001"
-
-   ```Windows:```
+```
+**Windows:**
+```bash
    docker run \
    -p 9000:9000 \
    -p 9001:9001 \
@@ -23,3 +25,4 @@ docker run \
    -e "MINIO_ROOT_PASSWORD=CHANGEME123" \
    -v D:\data:/data \
    quay.io/minio/minio server /data --console-address ":9001"
+```

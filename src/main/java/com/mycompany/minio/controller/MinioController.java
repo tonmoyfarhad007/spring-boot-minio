@@ -1,5 +1,6 @@
 package com.mycompany.minio.controller;
 
+import com.mycompany.minio.domainmodel.Media;
 import com.mycompany.minio.service.MinioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
@@ -35,7 +36,7 @@ public class MinioController {
     }
 
     @GetMapping("/all-media-links")
-    public List<String> getAllMediaLinks() {
+    public List<Media> getAllMediaLinks() {
         return minioService.getAllMediaLinks();
     }
 }

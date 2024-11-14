@@ -1,5 +1,6 @@
 package com.mycompany.minio.service;
 
+import com.mycompany.minio.domainmodel.Media;
 import io.minio.*;
 import io.minio.http.Method;
 import io.minio.messages.Item;
@@ -50,29 +51,38 @@ public class MinioService {
         }
     }
 
-    public List<String> getAllMediaLinks() {
-        List<String> mediaLinks = new ArrayList<>();
+    public List<Media> getAllMediaLinks() {
+        List<Media> mediaList = new ArrayList<>();
         try {
             // List all objects in the specified bucket
-            Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder().bucket(bucketName).build());
+            Iterable<Result<Item>> results = minioClient.listObjects(
+                    ListObjectsArgs.builder().bucket(bucketName).build()
+            );
 
-            // Generate a presigned URL for each object
+            // Generate a presigned URL for each object and create a Media object
             for (Result<Item> result : results) {
                 Item item = result.get();
                 String objectName = item.objectName();
 
-                String url = minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
-                        .method(Method.GET)
-                        .bucket(bucketName)
-                        .object(objectName)
-                        .expiry(7, TimeUnit.DAYS)  // Set expiration as needed
-                        .build());
+                String url = minioClient.getPresignedObjectUrl(
+                        GetPresignedObjectUrlArgs.builder()
+                                .method(Method.GET)
+                                .bucket(bucketName)
+                                .object(objectName)
+                                .expiry(7, TimeUnit.DAYS)  // Set expiration as needed
+                                .build()
+                );
 
-                mediaLinks.add(url);
+                // Create a Media object for each item (add logic to retrieve title/description if available)
+                String title = "Title for " + objectName;  // Placeholder title
+                String description = "Description for " + objectName;  // Placeholder description
+                Media media = new Media(title, description, url);
+
+                mediaList.add(media);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return mediaLinks;
+        return mediaList;
     }
 }

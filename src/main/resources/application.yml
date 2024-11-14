@@ -1,6 +1,13 @@
 spring:
   application:
     name: minio
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/Test
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
 
   servlet:
     multipart:
@@ -10,9 +17,9 @@ server:
   tomcat:
     max-swallow-size: -1
     connection-timeout: 60000
-  port: 8088
+  port: 8084
 minio:
   url: http://localhost:9000
-  accessKey: 88ufw7o1Dv7OLpbjVpji
-  secretKey: QiU4RBXuwe2pz1uUa2PqKjNu1zvyGvWvRlUbyFKr
+  accessKey: CyV50QHN6uwGkBAWBJU3
+  secretKey: P0X9FHdBdckjKglDC6arNKVQ0AqzFIS7mm3MPDoX
   bucketName: my-bucket
